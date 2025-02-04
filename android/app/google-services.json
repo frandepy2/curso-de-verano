@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "670634377042",
+    "project_id": "curso-de-verano-9ffcb",
+    "storage_bucket": "curso-de-verano-9ffcb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670634377042:android:5db350091468685f9b448b",
+        "android_client_info": {
+          "package_name": "com.example.curso_de_verano"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClfD1j2YEaXrev0E1oM0f7NDlkzp4dEDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

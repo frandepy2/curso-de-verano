@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:curso_de_verano/home_screen.dart';
+import 'package:curso_de_verano/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,11 +18,19 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+    // Controladores de los TextField de la pantalla de inicio.
+    final TextEditingController _userController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+
+    String email = "";
+    String password = "";
+
+  //Funcion de inicio de session con Firebase
   Future<void> _login(BuildContext context ,{required String email, required String password} ) async {
-    log('Email: $email');
-    log('Password: $password');
+
 
     try{
+      //Iniciamos session con Firebase.
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       
       if (userCredential.user!= null) {
@@ -42,8 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
 
-    String email = "";
-    String password = "";
+
 
     return Scaffold(
         body: SafeArea(
@@ -54,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextField(
+                  controller: _userController,
                   decoration: InputDecoration(
                     hintText: 'Correo',
                   ),
@@ -64,6 +73,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 TextField(
+                  controller: _passwordController,
+                  obscureText: true, 
                   decoration: InputDecoration(
                     hintText: 'Contraseña',
                   ),
@@ -76,6 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(onPressed: (){
                   _login(context ,email: email, password: password);
                 }, child: Text('Iniciar sesión')),
+
+                const SizedBox(height: 8),
+                //Boton de registro a la app
+                ElevatedButton(onPressed: (){
+                  context.push(SignUpScreen.routeName);
+                }, child: Text('Registrarse')),
               ],
             ),
           ),

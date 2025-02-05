@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curso_de_verano/selfie_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -26,43 +27,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _birthdayController = TextEditingController();
-
-
-  Future<void> _signUp() async {
-    //Recuperar los datos de los controllers
-    final name = _nameController.text;
-    final email = _emailController.text;
-    final password = _passwordController.text;
-    final phone = _phoneController.text;
-    final birthday = _birthdayController.text;
-
-
-    //Llamar a la funcion de firebase auth para registrar.
-    UserCredential credential = await FirebaseAuth.instance
-     .createUserWithEmailAndPassword(email: email, password: password);
-
-     // Obtener el user id del usuario
-     String uid = credential.user!.uid;
-
-    // Guardar los datos del usuario en la coleccion users/ con referencia el uid del usuario registrado
-    // /users/{uid}/
-    await FirebaseFirestore.instance
-     .collection('users')
-     .doc(uid)
-     .set(
-      {
-        'name': name,
-        'email': email,
-        'phone': phone,
-        'birthday': birthday,
-        'uid': uid,
-        'createdAt': FieldValue.serverTimestamp(),
-      }
-     );
-
-    // Redirigir a la pantalla de inicio de session o pop
-    context.pop();
-  }
 
   @override
   void initState() {
@@ -123,10 +87,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ElevatedButton(
                 onPressed: () async {
                   // Realizar la accion de registro
-                  log('Realizar el registro');
-                  _signUp();
+                  context.push('/selfie?name=${_nameController.text}&password=${ _passwordController.text}&email=${_emailController.text}&phone=${_phoneController.text}&birthday=${_birthdayController.text}');
                 },
-                child: Text('Registrarse'),
+                child: Text('Siguiente'),
               ),
             ],
           ),

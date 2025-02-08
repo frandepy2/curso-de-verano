@@ -1,5 +1,7 @@
+import 'package:curso_de_verano/account_screen.dart';
 import 'package:curso_de_verano/home_screen.dart';
 import 'package:curso_de_verano/login_screen.dart';
+import 'package:curso_de_verano/navigator_bar.dart';
 import 'package:curso_de_verano/selfie_screen.dart';
 import 'package:curso_de_verano/signup_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -11,11 +13,15 @@ class AppRouter {
         path: LoginScreen.routeName,
         builder: (context, state) => LoginScreen()),
     GoRoute(
+      path: NavigatorBar.routeName, builder : (context, state) => NavigatorBar()),
+    GoRoute(
         path: HomeScreen.routeName, builder: (context, state) => HomeScreen()),
     //Registramos la pantalla de Registro en el GoRouter.
     GoRoute(
         path: SignUpScreen.routeName,
         builder: (context, state) => SignUpScreen()),
+
+    GoRoute(path: AccountScreen.routeName, builder:  (context, state) => AccountScreen()),
     //Registramos la pantalla de solicitud de Selfie.
     // /selfie/:name/:password/:email/:phone/:birthday:
     GoRoute(

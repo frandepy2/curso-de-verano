@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curso_de_verano/account_screen.dart';
+import 'package:curso_de_verano/core/helpers/account_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
@@ -12,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  bool isInitialized = false;
   
   //Atributo que guarde los datos del usuario logueado
   Map<String, dynamic>? userData;
@@ -26,11 +33,19 @@ class _HomeScreenState extends State<HomeScreen> {
     // Obtener el uid del usuario
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
+    log(uid);
+
     // Con el uid del usuario vamos a consultar en Firestore /users/{uid} y traeremos los datos del usuario
   	DocumentSnapshot snapshot =  await FirebaseFirestore.instance
     .collection('users').doc(uid).get();
     // Mapeamos los datos y devolvemos
     userData = snapshot.data()! as Map<String,dynamic>;
+
+    AccountHelper.instance.setCurrentUser(userData!);
+
+    setState(() {
+      isInitialized = true;
+    });
   }
 
   @override
@@ -40,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Bienvenido'),
       ),
       body: SafeArea(
-        child: Padding(
+        child: isInitialized?  Padding(
           padding: EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,11 +107,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (userData!= null)
                   Text(userData!['phone']),
                 ],
-              )
+              ),
+
+              SizedBox(height: 20,),
 
             ],
           ),
-        ),
+        ) : Center(child: CircularProgressIndicator()),
       ),
     );
   }

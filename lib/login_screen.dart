@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:curso_de_verano/home_screen.dart';
+import 'package:curso_de_verano/navigator_bar.dart';
 import 'package:curso_de_verano/signup_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (userCredential.user!= null) {
         log('User signed in successfully: ${userCredential.user!.uid}');
         // Navigate to the home screen
-        context.go(HomeScreen.routeName);
+        context.go(NavigatorBar.routeName);
 
       } else {
         log('User sign in failed');

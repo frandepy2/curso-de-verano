@@ -1,5 +1,6 @@
 import 'package:curso_de_verano/account_screen.dart';
 import 'package:curso_de_verano/home_screen.dart';
+import 'package:curso_de_verano/qr_scanner_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,6 +19,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
 
   final List<Widget> _screens = [
     HomeScreen(),
+    QrScannerScreen(),
     AccountScreen(),
   ];
 
@@ -39,6 +41,10 @@ class _NavigatorBarState extends State<NavigatorBar> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: "Home",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.qr_code_scanner),
+          label: "QR Scanner",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),

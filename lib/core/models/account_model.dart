@@ -3,6 +3,8 @@
 // Esta clase sera el encargado de guardar como objeto los datos de usuario.
 
 
+import 'dart:convert';
+
 class AccountModel {
   final String uid;
   final String email;
@@ -37,14 +39,33 @@ class AccountModel {
   }
 
 
+  String toJson(){
+    return json.encode(toMap());
+  }
+
   String toQRString() {
     return '''
-      "uid" : $uid,
-      "email" : $email,
-      "photoURL" : $photoURL,
-      "phoneNumber" : $phoneNumber,
-      "name" : $name,
-      "birthday" : $birthday,
+    {
+      "uid" : "$uid",
+      "email" : "$email",
+      "photoURL" : "$photoURL",
+      "phoneNumber" : "$phoneNumber",
+      "name" : "$name",
+      "birthday" : "$birthday",
+    }
     ''';
   }
+
+
+  static AccountModel fromJsonString(String jsonString) {
+    Map<String, dynamic> jsonMap = json.decode(jsonString);
+    return AccountModel(
+      uid: jsonMap['uid'],
+      email: jsonMap['email'],
+      photoURL: jsonMap['photoURL'],
+      phoneNumber: jsonMap['phoneNumber'],
+      name: jsonMap['name'],
+      birthday: jsonMap['birthday'],
+    );
+}
 }

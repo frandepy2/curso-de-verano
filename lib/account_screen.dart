@@ -39,7 +39,7 @@ class _AccountScreenState extends State<AccountScreen> {
               SizedBox(height: 8),
               Text("Teléfono: ${AccountHelper.instance.getCurrentUser()!.phoneNumber}"),
               SizedBox(height: 16),
-              Center(child: QrImageView(data: AccountHelper.instance.getCurrentUser()!.toQRString(), size: 250,))
+              Center(child: QrImageView(data: AccountHelper.instance.getCurrentUser()!.toJson(), size: 250,))
             ],
           ),
         ),

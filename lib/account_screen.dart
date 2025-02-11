@@ -1,4 +1,5 @@
 import 'package:curso_de_verano/core/helpers/account_helper.dart';
+import 'package:curso_de_verano/core/helpers/encryption_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -39,7 +40,7 @@ class _AccountScreenState extends State<AccountScreen> {
               SizedBox(height: 8),
               Text("Teléfono: ${AccountHelper.instance.getCurrentUser()!.phoneNumber}"),
               SizedBox(height: 16),
-              Center(child: QrImageView(data: AccountHelper.instance.getCurrentUser()!.toJson(), size: 250,))
+              Center(child: QrImageView(data: EncryptorHelper.encrypt(AccountHelper.instance.getCurrentUser()!.toJson(), "ALLMRsgoJ5lfjwSI"), size: 250,))
             ],
           ),
         ),

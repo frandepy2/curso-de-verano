@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:curso_de_verano/core/helpers/encryption_helper.dart';
 import 'package:curso_de_verano/core/models/account_model.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
@@ -60,7 +61,10 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
 
   //Crear un BottonSheet que imprima los datos escaneados
   Future<void> showQrDataSheet(BuildContext context, String? qrData) async {
-    AccountModel userData = AccountModel.fromJsonString(qrData!);
+
+    final decrypted = EncryptorHelper.decrypt(qrData!, "ALLMRsgoJ5lfjwSI");
+
+    AccountModel userData = AccountModel.fromJsonString(decrypted);
 
     showModalBottomSheet(
         context: context,

@@ -1,4 +1,5 @@
 import 'package:curso_de_verano/core/routes/routes.dart';
+import 'package:curso_de_verano/core/themes/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class MainApp extends StatelessWidget {
     
 
     return MaterialApp.router(
+      theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.router,
     );

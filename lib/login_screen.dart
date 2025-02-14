@@ -4,12 +4,15 @@ import 'package:curso_de_verano/core/themes/app_theme.dart';
 import 'package:curso_de_verano/home_screen.dart';
 import 'package:curso_de_verano/navigator_bar.dart';
 import 'package:curso_de_verano/signup_screen.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
+  
+
   static const routeName = '/login';
 
   const LoginScreen({super.key});
@@ -36,6 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (userCredential.user != null) {
         log('User signed in successfully: ${userCredential.user!.uid}');
+
+        await FirebaseAnalytics.instance.logEvent(name: "loginSuccess" );
+
         // Navigate to the home screen
         context.go(NavigatorBar.routeName);
       } else {
@@ -47,7 +53,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    registerScreen();
+  }
+
+  Future<void> registerScreen()async {
+     await FirebaseAnalytics.instance.logScreenView( screenName:  "Login");
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+    
+
     return Scaffold(
       body: SafeArea(
         child: Padding(

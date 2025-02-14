@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curso_de_verano/core/helpers/account_helper.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getUserData();
+    registerScreen();
+  }
+
+  Future<void> registerScreen()async {
+     await FirebaseAnalytics.instance.logScreenView( screenName:  "home-screen");
   }
 
   Future<void> getUserData() async {
